@@ -27,23 +27,23 @@ player.on('connectionError', (queue, error) => {
 });
 
 player.on('trackStart', (queue, track) => {
-  queue.metadata.send(`🎶 | Started playing: **${track.title}** in **${queue.connection.channel.name}**!`);
+  queue.metadata.send(`✅ 🎵 Vamos con **${track.title}**, estamos en **${queue.connection.channel.name}**!`);
 });
 
 player.on('trackAdd', (queue, track) => {
-  queue.metadata.send(`🎶 | Track **${track.title}** queued!`);
+  queue.metadata.send(`✅ 🎵 Agregada **${track.title}** a la lista de reproducción!`);
 });
 
 player.on('botDisconnect', queue => {
-  queue.metadata.send('❌ | I was manually disconnected from the voice channel, clearing queue!');
+  queue.metadata.send('⚠️ Me habéis echado del canal! 😢 Como venganza os borro la lista de reproducción, ');
 });
 
 player.on('channelEmpty', queue => {
-  queue.metadata.send('❌ | Nobody is in the voice channel, leaving...');
+  queue.metadata.send('⚠️ Me habéis dejado solito así que marcho que teño que marchar');
 });
 
 player.on('queueEnd', queue => {
-  queue.metadata.send('✅ | Queue finished!');
+  queue.metadata.send('ℹ️ Hemos acabado la lista de reproducción!');
 });
 
 client.once('ready', async () => {
@@ -58,16 +58,20 @@ client.once('disconnect', () => {
   console.log('Disconnect!');
 });
 
+client.on("guildCreate", guild => {
+     console.log(`[BOT AÑADIDO A UN SERVIDOR]: ${guild.name} (id: ${guild.id}). Este servidor tiene ${guild.memberCount} miembros!`);
+});
+
 client.on("messageCreate", async (message) => {
   if (message.author.bot || !message.guild) return;
   if (!client.application?.owner) await client.application?.fetch();
 
   if (message.content === "!deploy" && message.author.id === client.application?.owner?.id) {
       await message.guild.commands.set(client.commands).then(() => {
-        message.reply("Deployed!");
+        message.reply("✅ Comandos instalados!");
       })
       .catch((err) => {
-        message.reply("Could not deploy commands! Make sure the bot has the application.commands permission!");
+        message.reply("❌ No he podido instalar los comandos 😕 Comprueba que tengo el permiso application.commands");
         console.error(err)
       });
   }
@@ -75,17 +79,15 @@ client.on("messageCreate", async (message) => {
 
 client.on('interactionCreate', async interaction => {
   const command = client.commands.get(interaction.commandName.toLowerCase());
+  date = interaction.createdAt;
+  console.log(`${date.getFullYear()}-${date.getMonth()}-${date.getDay()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}\t[${interaction.guild.name}]: User ${interaction.user.username} - ${interaction.commandName.toLowerCase()}`);
 
   try {
-    if (interaction.commandName == 'ban' || interaction.commandName == 'userinfo') {
-      command.execute(interaction, client);
-    } else {
-      command.execute(interaction, player);
-    }
+    command.execute(interaction, player);
   } catch (error) {
     console.error(error);
     interaction.followUp({
-      content: 'There was an error trying to execute that command!',
+      content: '❌ Ups, ha pasado algo chungo 😵‍💫',
     });
   }
 });

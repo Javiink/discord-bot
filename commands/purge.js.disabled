@@ -1,11 +1,11 @@
 module.exports = {
   name: 'purge',
-  description: 'Delete the last messages in all chats.',
+  description: 'Elimina los mensajes que decidas en todos los canales. ⚠️ MUCHO CUIDADO CON ESTO! ⚠️ ',
   options: [
     {
       name: 'num',
       type: 4, //'INTEGER' Type
-      description: 'The number of messages you want to delete. (max 100)',
+      description: 'Vamos allá... Cuántos mensajes quieres eliminar? (máx. 100)',
       required: true,
     },
   ],
@@ -13,7 +13,7 @@ module.exports = {
     const deleteCount = interaction.options.get('num').value;
 
     if (!deleteCount || deleteCount < 2 || deleteCount > 100)
-      return message.reply('Please provide a number between 2 and 100 for the number of messages to delete');
+      return message.reply('❌ indica cuántos mensajes eliminar, entre 2 y 100 mensajes. No me da la cabeza para más 😅');
 
     const fetched = await interaction.channel.messages.fetch({
       limit: deleteCount,
@@ -29,7 +29,7 @@ module.exports = {
       })
       .catch(error => {
         interaction.reply({
-          content: `Couldn't delete messages because of: ${error}`,
+          content: `❌ No he podido eliminar los mensajes. El servidor dice: ${error}`,
           ephemeral: true,
         });
       });

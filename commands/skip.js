@@ -1,12 +1,13 @@
 const {GuildMember} = require('discord.js');
 
 module.exports = {
+  icon: '⏭️',
   name: 'skip',
-  description: 'Skip a song!',
+  description: 'No te gusta esa canción? No pasa nada, la saltamos',
   async execute(interaction, player) {
     if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
       return void interaction.reply({
-        content: 'You are not in a voice channel!',
+        content: '❌ Tienes que estar en el canal de voz para poder saltar la canción!',
         ephemeral: true,
       });
     }
@@ -16,18 +17,18 @@ module.exports = {
       interaction.member.voice.channelId !== interaction.guild.me.voice.channelId
     ) {
       return void interaction.reply({
-        content: 'You are not in my voice channel!',
+        content: '❌ Tienes que estar en el canal de voz para poder saltar la canción!',
         ephemeral: true,
       });
     }
 
     await interaction.deferReply();
     const queue = player.getQueue(interaction.guildId);
-    if (!queue || !queue.playing) return void interaction.followUp({content: '❌ | No music is being played!'});
+    if (!queue || !queue.playing) return void interaction.followUp({content: '❌ No hay ninguna canción que pueda saltar'});
     const currentTrack = queue.current;
     const success = queue.skip();
     return void interaction.followUp({
-      content: success ? `✅ | Skipped **${currentTrack}**!` : '❌ | Something went wrong!',
+      content: success ? `✅ ⏭️ Vale, saltamos **${currentTrack}**!` : 'Ups, ha pasado algo chungo 😵‍💫',
     });
   },
 };

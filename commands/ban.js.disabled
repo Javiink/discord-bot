@@ -5,7 +5,7 @@ module.exports = {
     {
       name: 'user',
       type: 6, //USER Type
-      description: 'The user you want to ban',
+      description: 'Banea un usuario del servidor',
       required: true,
     },
   ],
@@ -13,11 +13,11 @@ module.exports = {
     const member = interaction.options.get('user').value;
 
     if (!member) {
-      return message.reply('You need to mention the member you want to ban him');
+      return message.reply('❌ Debes especificar el usuario al que quieres banear');
     }
 
     if (!interaction.member.permissions.has('BAN_MEMBERS')) {
-      return message.reply("I can't ban this user.");
+      return message.reply("❌ No puedo banear a este usuario 😕");
     }
 
     const userinfo = client.users.cache.get(member);
@@ -26,13 +26,13 @@ module.exports = {
       .ban(member)
       .then(() => {
         interaction.reply({
-          content: `${userinfo.username} was banned.`,
+          content: `✅ ${userinfo.username} ha sido baneado.`,
           ephemeral: true,
         });
       })
       .catch(error =>
         interaction.reply({
-          content: `Sorry, an error occured.`,
+          content: `❌ Ups, ha pasado algo chungo y no he podido banearle 😵‍💫.`,
           ephemeral: true,
         }),
       );

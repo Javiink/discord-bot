@@ -1,12 +1,13 @@
 const {GuildMember} = require('discord.js');
 
 module.exports = {
+  icon: '⏯️',
   name: 'resume',
-  description: 'Resume current song!',
+  description: 'Continúa la reproducción donde se dejó',
   async execute(interaction, player) {
     if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
       return void interaction.reply({
-        content: 'You are not in a voice channel!',
+        content: '❌ Tienes que estar en el canal de voz para eso!',
         ephemeral: true,
       });
     }
@@ -16,7 +17,7 @@ module.exports = {
       interaction.member.voice.channelId !== interaction.guild.me.voice.channelId
     ) {
       return void interaction.reply({
-        content: 'You are not in my voice channel!',
+        content: '❌ Tienes que estar en el canal de voz para eso!',
         ephemeral: true,
       });
     }
@@ -25,11 +26,11 @@ module.exports = {
     const queue = player.getQueue(interaction.guildId);
     if (!queue || !queue.playing)
       return void interaction.followUp({
-        content: '❌ | No music is being played!',
+        content: '❌ No hay nada reproduciéndose, igual lo has soñado 😕',
       });
     const success = queue.setPaused(false);
     return void interaction.followUp({
-      content: success ? '▶ | Resumed!' : '❌ | Something went wrong!',
+      content: success ? '✅ ▶ Seguimos!' : 'Ups, ha pasado algo chungo 😵‍💫',
     });
   },
 };

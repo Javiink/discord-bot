@@ -1,11 +1,11 @@
 module.exports = {
   name: 'userinfo',
-  description: 'Get information about a user.',
+  description: 'Te dice todo de alguien. O bueno, casi todo. Todo tenemos secretos oscuros 😏',
   options: [
     {
       name: 'user',
       type: 6, //USER TYPE
-      description: 'The user you want to get info about',
+      description: 'El usuario del que quieres saber cosas',
       required: true,
     },
   ],
@@ -14,7 +14,7 @@ module.exports = {
     const user = client.users.cache.get(member);
 
     interaction.reply({
-      content: `Name: ${user.username}, ID: ${user.id}, Avatar: ${user.displayAvatarURL({dynamic: true})}`,
+      content: `Nombre: ${user.username}, ID: ${user.id}, Avatar: ${user.displayAvatarURL({dynamic: true})}`,
       ephemeral: true,
     });
   },

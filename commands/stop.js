@@ -1,12 +1,13 @@
 const {GuildMember} = require('discord.js');
 
 module.exports = {
+  icon: '⏹️',
   name: 'stop',
-  description: 'Stop all songs in the queue!',
+  description: 'Para la reproducción y elimina la lista de reproducción',
   async execute(interaction, player) {
     if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
       return void interaction.reply({
-        content: 'You are not in a voice channel!',
+        content: '❌ Debes estar en el canal de voz para parar la reproducción!',
         ephemeral: true,
       });
     }
@@ -16,7 +17,7 @@ module.exports = {
       interaction.member.voice.channelId !== interaction.guild.me.voice.channelId
     ) {
       return void interaction.reply({
-        content: 'You are not in my voice channel!',
+        content: '❌ Debes estar en el canal de voz para parar la reproducción!',
         ephemeral: true,
       });
     }
@@ -25,9 +26,9 @@ module.exports = {
     const queue = player.getQueue(interaction.guildId);
     if (!queue || !queue.playing)
       return void interaction.followUp({
-        content: '❌ | No music is being played!',
+        content: '❌ La lista de reproducción está vacía!',
       });
     queue.destroy();
-    return void interaction.followUp({content: '🛑 | Stopped the player!'});
+    return void interaction.followUp({content: '✅ ⏹️ Okey, paramos!'});
   },
 };
