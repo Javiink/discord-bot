@@ -9,21 +9,21 @@ require('better-logging')(console, {
 
 module.exports = {
     log(msg) {
-        console.info(chalk.blue('ℹ')+`\t${msg}`);
+        console.info(chalk.blue('ℹ')+` ${msg}`);
     },
     info(msg) {
-        console.info(chalk.blue('ℹ')+`\t${msg}`);
+        console.info(chalk.blue('ℹ')+` ${msg}`);
     },
     success(msg) {
-        console.info(chalk.green(`✓\t${msg}`));
+        console.info(chalk.green(`✓ ${msg}`));
     },
     warn(msg) {
-        console.warn(chalk.yellow.bold('⚠ WARN')+chalk.yellowBright.bold(`\t${msg}`));
+        console.warn(chalk.yellow.bold('⚠ WARN')+chalk.yellowBright.bold(` ${msg}`));
     },
     error(msg) {
-        console.error(chalk.red.bold('---- ✗ ERROR ----')+chalk.redBright.bold(`\t${msg}`));
+        console.error(chalk.red.bold('---- ✗ ERROR ----')+chalk.redBright.bold(` ${msg}`));
     },
     highlight(msg) {
-        console.info(chalk.magenta.bold('!!HEY, LISTEN!!')+`\t${msg}`);
+        console.info(chalk.magenta.bold('!!HEY, LISTEN!!')+` ${msg}`);
     },
 }

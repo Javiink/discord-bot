@@ -52,7 +52,7 @@ player.on('queueEnd', queue => {
 });
 
 client.once('ready', async () => {
-  logger.info('Listo!');
+  logger.info(chalk.cyan.bold('[STARTUP]')+' Listo!');
 });
 
 client.once('reconnecting', () => {
