@@ -26,4 +26,7 @@ module.exports = {
     highlight(msg) {
         console.info(chalk.magenta.bold('!!HEY, LISTEN!!')+` ${msg}`);
     },
+    command(msg) {
+        console.log(chalk.cyanBright.bold(`> ${msg}`));
+    },
 }

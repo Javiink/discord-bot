@@ -64,6 +64,9 @@ client.once('disconnect', () => {
 });
 
 client.on("guildCreate", guild => {
+    logger.highlight(chalk.magenta.bold('BOT ADDED TO SERVER! ')+chalk.greenBright.bold(`[${guild.name}]`)+` (id: ${guild.id}) - Members: ${guild.memberCount}}`);
+    let guildchannel = guild.channels.cache.filter(chx => chx.type === 'text').find(x => x.position === 0);
+    logger.info(guildchannel);
     guild.systemChannel.send({
       embeds: [
         {
@@ -73,7 +76,6 @@ client.on("guildCreate", guild => {
         },
       ],
     });
-    logger.highlight(chalk.magenta.bold('BOT ADDED TO SERVER! ')+chalk.greenBright.bold(`[${guild.name}]`)+` (id: ${guild.id}) - Members: ${guild.memberCount}}`);
 });
 
 client.on("guildDelete", guild => {
@@ -112,3 +114,21 @@ client.on('interactionCreate', async interaction => {
 });
 
 client.login(token);
+
+
+const readline = require('readline');
+const rl = readline.createInterface({
+  input: process.stdin, //or fileStream 
+  output: process.stdout
+});
+const start = async () =>{
+    for await (const line of rl) {
+      process.on('uncaughtException', err => {
+        logger.error('There was an uncaught error:', err)
+      })
+      let res = eval(line);
+      console.log(eval(line));
+
+    }
+}
+start()
