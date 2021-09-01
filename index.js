@@ -63,11 +63,27 @@ client.once('disconnect', () => {
   logger.warn('Desconectado!');
 });
 
+const getDefaultChannel = (guild) => {
+  if(guild.channels.cache.has(guild.id))
+    return guild.channels.cache.get(guild.id)
+  const generalChannel = guild.channels.cache.find(channel => channel.name === "general");
+  if (generalChannel)
+    return generalChannel;
+  return guild.channels.cache
+   .filter(c => c.type === "GUILD_TEXT" &&
+     c.permissionsFor(guild.client.user).has("SEND_MESSAGES"))
+   .sort((a, b) => a.position - b.position ||
+     Long.fromString(a.id).sub(Long.fromString(b.id)).toNumber())
+   .first();
+}
+
 client.on("guildCreate", guild => {
     logger.highlight(chalk.magenta.bold('BOT ADDED TO SERVER! ')+chalk.greenBright.bold(`[${guild.name}]`)+` (id: ${guild.id}) - Members: ${guild.memberCount}}`);
-    let guildchannel = guild.channels.cache.filter(chx => chx.type === 'text').find(x => x.position === 0);
-    logger.info(guildchannel);
-    guild.systemChannel.send({
+    let channel = getDefaultChannel(guild);
+    if (!channel) {
+      return false;
+    }
+    channel.send({
       embeds: [
         {
           title: '👋 Hola!',
