@@ -87,7 +87,7 @@ client.on("guildCreate", guild => {
       embeds: [
         {
           title: '👋 Hola!',
-          description: `Gracias por agregarme al servidor 🥰\nPara que a todo el mundo le sea más fácil usar mis funciones, **es necesario que instale mis comandos de barra** en el servidor.\nAsí, cuando alguien escriba / en el chat, aparecerán mis comandos y su descripción.\nPara esto **escribe !install en el chat** y comenzaré a instalarlos.\n\nSi necesitas ayuda sobre cómo usarme, usa mi comando /help y si tienes algún problema, escribe a Javiink#6285\n\n 🎵 Que empiece la fiesta! 🎵`,
+          description: `Gracias por agregarme al servidor 🥰\n\n⚠️Para poder usar mis funciones, **es necesario que instale mis comandos de barra** en el servidor.\nAsí, cuando alguien escriba / en el chat, aparecerán mis comandos y su descripción.\nPara esto **escribe !install en el chat** y comenzaré a instalarlos.\n\nSi necesitas ayuda sobre cómo usarme, usa mi comando /help y si tienes algún problema, escribe a Javiink#6285\n\n 🎵 Que empiece la fiesta! 🎵`,
           color: 0xffffff,
         },
       ],
