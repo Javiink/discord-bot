@@ -98,6 +98,10 @@ client.on("guildDelete", guild => {
     logger.highlight(chalk.red.bold('BOT --REMOVED-- FROM SERVER! ')+chalk.greenBright.bold(`[${guild.name}]`)+` (id: ${guild.id})`);
 });
 
+client.on("ready", () => {
+    client.user.setActivity(`música`, {type: 'LISTENING'});
+})
+
 client.on("messageCreate", async (message) => {
   if (message.author.bot || !message.guild) return;
   if (!client.application?.owner) await client.application?.fetch();
