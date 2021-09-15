@@ -106,7 +106,7 @@ client.on("messageCreate", async (message) => {
   if (message.author.bot || !message.guild) return;
   if (!client.application?.owner) await client.application?.fetch();
 
-  if (message.content === "!install" && message.author.id === client.application?.owner?.id) {
+  if (message.content === "!install") {
       await message.guild.commands.set(client.commands).then(() => {
         message.reply("✅ Comandos instalados! Ahora se puede escribir / en el chat para que aparezcan mis comandos y su descripción.");
         logger.success(`[${message.guild.name}] - Commands installed!!`)
