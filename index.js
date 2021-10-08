@@ -5,6 +5,7 @@ const {token} = require('./config.json');
 const {Player} = require('discord-player');
 const logger = require('./logger')
 const chalk = require('chalk');
+var Long = require('long');
 
 const client = new Client();
 client.commands = new Discord.Collection();
