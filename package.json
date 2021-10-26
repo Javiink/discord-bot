@@ -1,7 +1,7 @@
 {
-  "name": "music-bot",
+  "name": "musiink-bot",
   "version": "1.0.0",
-  "repository": "https://github.com/TannerGabriel/discord-music-bot.git",
+  "repository": "https://github.com/Javiink/musiink-bot.git",
   "description": "A simple discord music bot",
   "main": "index.js",
   "scripts": {
@@ -12,14 +12,14 @@
     "music",
     "bot"
   ],
-  "author": "Gabriel Tanner",
+  "author": "Javiink",
   "license": "MIT",
   "dependencies": {
     "@discordjs/opus": "^0.6.0",
     "better-logging": "^4.5.0",
     "chalk": "^4.1.2",
-    "discord-player": "^5.0.2",
-    "discord.js": "^13.1.0",
+    "discord-player": "^5.1",
+    "discord.js": "^13.2",
     "ffmpeg": "0.0.4",
     "fluent-ffmpeg": "^2.1.2",
     "long": "^4.0.0",
