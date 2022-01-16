@@ -23,6 +23,6 @@
     "ffmpeg": "0.0.4",
     "fluent-ffmpeg": "^2.1.2",
     "long": "^4.0.0",
-    "ytdl-core": "^4.9.2"
+    "ytdl-core": "^4.10.0"
   }
 }
