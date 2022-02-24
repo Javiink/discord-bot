@@ -98,7 +98,7 @@ client.on("guildCreate", guild => {
       logger.success(guild.name, `Commands installed!!`);
     })
     .catch((err) => {
-      (!channel ? undefined : channel.send("❌ No he podido instalar los comandos 😕 Comprueba que tengo el permiso application.commands"));
+      (!channel ? undefined : channel.send("❌ No he podido instalar los comandos 😕 Vuelve a añadirme al servidor y asegúrate de que me das el permiso application.commands"));
       logger.error(guild.name, err);
     });
 });
