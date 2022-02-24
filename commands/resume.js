@@ -3,7 +3,7 @@ const {GuildMember} = require('discord.js');
 module.exports = {
   icon: '⏯️',
   name: 'resume',
-  description: 'Continúa la reproducción donde se dejó',
+  description: 'Continúa la reproducción donde se dejó.',
   async execute(interaction, player) {
     if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
       return void interaction.reply({

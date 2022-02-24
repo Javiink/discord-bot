@@ -3,7 +3,7 @@ const {GuildMember} = require('discord.js');
 module.exports = {
   icon: '⏭️',
   name: 'skip',
-  description: 'No te gusta esa canción? No pasa nada, la saltamos',
+  description: 'No te gusta esa canción? No pasa nada, la saltamos.',
   async execute(interaction, player) {
     if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
       return void interaction.reply({

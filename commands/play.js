@@ -4,7 +4,7 @@ const {QueryType} = require('discord-player');
 module.exports = {
   icon: '▶️',
   name: 'play',
-  description: 'Usa esto para reproducir algo. Creo que así funciona.',
+  description: 'Usa esto seguido de un link o nombre de canción para reproducir algo. Creo que así funciona.',
   options: [
     {
       name: 'query',

@@ -3,7 +3,7 @@ const {GuildMember} = require('discord.js');
 module.exports = {
   icon: '⏹️',
   name: 'stop',
-  description: 'Para la reproducción y elimina la lista de reproducción',
+  description: 'Para la reproducción y elimina la lista de reproducción.',
   async execute(interaction, player) {
     if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
       return void interaction.reply({
