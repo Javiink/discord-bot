@@ -1,7 +1,8 @@
 const fs = require('fs');
+const Statcord = require('statcord.js');
 const Discord = require('discord.js');
 const Client = require('./client/Client');
-const {token} = require('./config.json');
+const {token, statcordKey} = require('./config.json');
 const {Player} = require('discord-player');
 const logger = require('./logger')
 const chalk = require('chalk');
@@ -9,6 +10,11 @@ var Long = require('long');
 
 const client = new Client();
 client.commands = new Discord.Collection();
+
+const statcord = new Statcord.Client({
+  client,
+  key: statcordKey
+})
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
@@ -78,37 +84,41 @@ const getDefaultChannel = (guild) => {
    .first();
 }
 
-client.on("guildCreate", guild => {
-    logger.highlight(guild.name, `BOT ADDED TO SERVER! (id: ${guild.id}) - Members: ${guild.memberCount})`);
-    let channel = getDefaultChannel(guild);
-    if (!channel) {
-      return false;
-    }
-    channel.send({
-      embeds: [
-        {
-          title: '👋 Hola!',
-          description: `Gracias por agregarme al servidor 🥰\n\nℹ️ Para poder usar mis funciones, voy a instalar mis comandos.\n\nSi necesitas ayuda sobre cómo usarme, usa mi comando /help y si tienes algún problema, escribe a Javiink#6285\n\n 🎵 ¡Que empiece la fiesta! 🎵`,
-          color: 0xffffff,
-        },
-      ],
-    });
-    guild.commands.set(client.commands).then(() => {
-      (!channel ? undefined : channel.send("✅ Comandos instalados! Ahora se puede escribir / en el chat para que aparezcan mis comandos y su descripción."));
-      logger.success(guild.name, `Commands installed!!`);
-    })
-    .catch((err) => {
-      (!channel ? undefined : channel.send("❌ No he podido instalar los comandos 😕 Vuelve a añadirme al servidor y asegúrate de que me das el permiso application.commands"));
-      logger.error(guild.name, err);
-    });
+client.on("guildCreate", async guild => {
+  let serverOwner = await guild.fetchOwner();
+  logger.highlight(guild.name, `BOT ADDED TO SERVER! (Owner: ${serverOwner.user.tag} - Members: ${guild.memberCount} - id: ${guild.id})`);
+  statcord.postCommand('serverAdded', serverOwner.user.id);
+  let channel = getDefaultChannel(guild);
+  if (!channel) {
+    return false;
+  }
+  channel.send({
+    embeds: [
+      {
+        title: '👋 Hola!',
+        description: `Gracias por agregarme al servidor 🥰\n\nℹ️ Para poder usar mis funciones, voy a instalar mis comandos.\n\nSi necesitas ayuda sobre cómo usarme, usa mi comando /help y si tienes algún problema, escribe a Javiink#6285\n\n 🎵 ¡Que empiece la fiesta! 🎵`,
+        color: 0xffffff,
+      },
+    ],
+  });
+  guild.commands.set(client.commands).then(() => {
+    (!channel ? undefined : channel.send("✅ Comandos instalados! Ahora se puede escribir / en el chat para que aparezcan mis comandos y su descripción."));
+    logger.success(guild.name, `Commands installed!!`);
+  })
+  .catch((err) => {
+    (!channel ? undefined : channel.send("❌ No he podido instalar los comandos 😕 Vuelve a añadirme al servidor y asegúrate de que me das el permiso application.commands"));
+    logger.error(guild.name, err);
+  });
 });
 
-client.on("guildDelete", guild => {
-    logger.highlight(guild.name, `BOT --REMOVED-- FROM SERVER! (id: ${guild.id}) - Members: ${guild.memberCount})`);
+client.on("guildDelete", async guild => {
+  logger.highlight(guild.name, `BOT --REMOVED-- FROM SERVER! (Members: ${guild.memberCount} - id: ${guild.id})`);
+  statcord.postCommand('serverRemoved', '0000000000000000');
 });
 
 client.on("ready", () => {
-    client.user.setActivity(`música`, {type: 'LISTENING'});
+  client.user.setActivity(`música`, {type: 'LISTENING'});
+  statcord.autopost();
 })
 
 client.on("messageCreate", async (message) => {
@@ -121,8 +131,10 @@ client.on('interactionCreate', async interaction => {
   date = interaction.createdAt;
   logger.info(interaction.guild.name, `User ${chalk.yellowBright(interaction.user.username)} issued ${chalk.bold(interaction.commandName.toLowerCase())} `+(interaction.options.get('query')?chalk.bold(interaction.options.get('query').value):''));
 
+  
   try {
     command.execute(interaction, player);
+    statcord.postCommand(interaction.commandName.toLowerCase(), interaction.user.id)
   } catch (error) {
     logger.error(error);
     interaction.followUp({

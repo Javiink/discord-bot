@@ -23,6 +23,7 @@
     "ffmpeg": "0.0.4",
     "fluent-ffmpeg": "^2.1.2",
     "long": "^4.0.0",
+    "statcord.js": "^3.4.1",
     "ytdl-core": "^4.10.1"
   }
 }
