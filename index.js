@@ -145,6 +145,9 @@ client.on('interactionCreate', async interaction => {
 
 client.login(token);
 
+process.on('unhandledRejection', error => { 
+  logger.error('---BOT ERROR---', error);
+});
 
 const readline = require('readline');
 const rl = readline.createInterface({
