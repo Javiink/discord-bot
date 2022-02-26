@@ -1,14 +1,25 @@
-# Discord Music bot
+# 🎶 Musiink
 
-A simple discord bot that helps you manage your server by providing useful commands like playing music or deleting text messages.
+This is a simple but straightforward bot to play music on your server. You only need to add it to your server and use /play command! It supports YouTube (and YT Music), Spotify and SoundCloud media/playlists :)
 
-You can find the tutorial about building a discord music bot [here](https://gabrieltanner.org/blog/dicord-music-bot). 
+For example, you can start the party in your voice channel by typing "/play " and then, using the bot command, you can type the name of the song you want to play or paste the link. The bot will join your voice channel and start playing music lightning fast!
+
+Also, you can:
+
+- Manage the playback pausing, resuming or stopping the song
+- Skip songs you are not in the mood to listen to
+- Ask what song is playing now (and get a pretty nice graphical representation, I must say)
+- Shuffling the playlist if you are tired of listening to it always in the same order
+- …and more! I’m continuously developing the bot and planning to add more useful commands, but always attached to the idea of a simple and easy to use music bot.
+
+Plus, the bot is very polite, we put our efforts on make it understandable and have a human-friendly interface.
+
+For now, the bot is only available in spanish, but you can use it anyways since there’s not much to read.
 
 ## Table of content
 
 * [Requirements](#requirements)
 * [Getting started](#getting-started)
-* [Common errors](#common-errors)
 * [Contributing](#contributing)
 * [Author](#author)
 * [License](#license)
@@ -18,7 +29,6 @@ You can find the tutorial about building a discord music bot [here](https://gabr
 - [Node](https://nodejs.org/en/) - Version 16 or higher
 - [NPM](https://www.npmjs.com/)
 - [FFMPEG](https://www.ffmpeg.org/)
-- [Docker](https://www.docker.com/) (optional)
 
 ## Getting started
 
@@ -28,10 +38,10 @@ First, make sure you have all the required tools installed on your local machine
 
 ```bash
 # Clone the repository
-git clone https://github.com/TannerGabriel/discord-bot.git
+git clone https://github.com/Javiink/musiink-bot.git
 
 # Enter into the directory
-cd discord-bot/
+cd musiink-bot/
 
 # Install the dependencies
 npm install
@@ -41,86 +51,36 @@ npm install
 
 **Important:** Make sure that your bot has the `applications.commands` application scope enabled, which can be found under the `OAuth2` tap on the [developer portal](https://discord.com/developers/applications/)
 
-### Configuration
+## Commands
 
-After cloning the project and installing all dependencies, you need to add your Discord API token in the config.json file.
+* ▶️ Play music
 
-### Starting the application
+`/play URL_OR_SONGTITLE`
 
-```bash
-node index.js
-```
-
-### Starting the application using Docker
-
-```bash
-# Build the image
-docker build --tag discordbot .
-
-# Run the image
-docker run -d discordbot
-```
-
-## Deploying commands
-
-Before you can use the bots slash command you first need to add them to your Discord server. You can use the `!deploy` command to do so.
-
-<img src="./assets/deploy-commands.png">
-
-After deploying the commands you should be able to see and access them by typing a slash:
-
-<img src="./assets/commands.png">
-
-## Features & Commands
-
-> Note: The repository now uses the new Discord slash commands
-
-* 🎶 Play music from YouTube via url
-
-`/play YOUTUBE_URL`
-
-* 🎶 Play music from using song name
-
-`/play SONG_NAME`
-
-* 📃 Pause music
+* ⏸️ Pause music
 
 `/pause`
 
-* 🎓 Resume music
+* ⏯️ Resume music
 
 `/resume`
 
-* 💿 Skip song
+* ⏭️ Skip song
 
 `/skip`
 
-* 🔇 Stop music
+* ⏹️ Stop music
 
 `/stop`
 
-* Now Playing (/nowplaying)
-* Get information about a user (/userinfo USER)
-* Ban a player (/ban USER)
-* Delete the latest chat messages (/purge NUM_OF_MESSAGES)
+* 🔀 Shuffle the playlist
 
-<img src="./assets/playing_song.png">
+`/shuffle`
 
-## Common errors
+* 🎶 What's playing now?
 
-Here is a list of common errors and how you can fix them.
+`/nowplaying`
 
-### Dependencies aren't up to date
-
-The packages used in this repository get updated often, especially the ytdl-core package. That is why it is always worth a try updating those if you get an error like `invalid URL: undefined` or when the bot crashes when running the play command.
-
-```bash
-npm install ytdl-core@latest
-```
-
-### FFMPEG is not installed on the machine running the bot
-
-The `play` command requires FFMPEG to be installed on the machine that is running the bot. You can download it on the official [FFMPEG website](https://www.ffmpeg.org/). Note: This isn't relevant if you use the Dockerfile because it will install FFMPEG inside of the container.
 
 ## Contributing
 
@@ -128,11 +88,7 @@ You are welcome to contribute by submitting a Pull Request to the repository.
 
 ## Author
 
-[Gabriel Tanner](https://gabrieltanner.org/)
-
-## Support me
-
-<a href="https://www.buymeacoffee.com/gabrieltanner" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+Forked from [GabrielTanner's Discord music bot](https://github.com/TannerGabriel/discord-bot), tweaked by [Javiink](https://github.com/Javiink) (Javiink#6285)
 
 ## License
 
