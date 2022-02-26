@@ -1,6 +1,6 @@
 # 🎶 Musiink
 
-This is a simple but straightforward bot to play music on your server. You only need to add it to your server and use /play command! It supports YouTube (and YT Music), Spotify and SoundCloud media/playlists :)
+This is a simple but straightforward bot to play music on your Discord server. You only need to add it to your server and use /play command! It supports YouTube (and YT Music), Spotify and SoundCloud media/playlists :)
 
 For example, you can start the party in your voice channel by typing "/play " and then, using the bot command, you can type the name of the song you want to play or paste the link. The bot will join your voice channel and start playing music lightning fast!
 
